@@ -12,8 +12,6 @@ export class User {
         this.password = props.password;
         this.createdAt = props.createdAt ?? new Date();
     }
-
-    
 }
 
 interface UserProps {

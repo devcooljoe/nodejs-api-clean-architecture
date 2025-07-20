@@ -1,5 +1,5 @@
 import app from './app';
-import { AppDataSource } from './infrastructure/db/data-source';
+import { AppDataSource } from './infrastructure/db/DataSource';
 
 const PORT = process.env.PORT || 8000;
 
