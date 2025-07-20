@@ -10,8 +10,8 @@ export class UserController {
             const dto = plainToInstance(CreateUserDTO, request.body);
             const user = await new UserUseCase(new UserRepositoryImpl).createUserUseCase(dto);
             return response.status(201).json({ message: 'User created', user });
-        } catch (error) {
-
+        } catch (error: any) {
+            
         }
     }
 }
