@@ -1,5 +1,11 @@
 import { Router } from "express";
+import userRouter from "./UserRouter";
 
-const router =  Router();
+const router = Router();
 
-router.post('/api/user/register', );
+router.use('/api/v1/user', userRouter);
+
+
+export default router;
+
+

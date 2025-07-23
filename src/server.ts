@@ -1,9 +1,10 @@
-import app from './app';
-import { AppDataSource } from './infrastructure/db/DataSource';
+import env from './config/env';
+import { appDataSource } from './infrastructure/db/DataSource';
+import app from './main';
 
-const PORT = process.env.PORT || 8000;
+const PORT = env.PORT || 8000;
 
-AppDataSource.initialize()
+appDataSource.initialize()
     .then((_) => {
         console.log("📦 Database connected");
         app.listen(PORT, () => {

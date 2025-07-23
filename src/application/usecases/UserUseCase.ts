@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import { validate } from "class-validator";
+import { validateDtoOrThrow } from '../../core/utils/validate-dto';
 import { User } from "../../domain/entity/User";
 import { UserRepository } from "../../domain/repository/UserRepository";
 import { CreateUserDTO } from "../dto/CreateUserDTO";
@@ -8,15 +8,8 @@ export class UserUseCase {
 
     constructor(private readonly userRepo: UserRepository) { }
 
-    async createUserUseCase(userDto: CreateUserDTO): Promise<User> {
-        const errors = await validate(userDto);
-        if (errors.length > 0) {
-            const errorMessages = errors.flatMap(err =>
-                Object.values(err.constraints || {})
-            );
-            throw new Error(errorMessages.join('\n'));
-        }
-
+    async createUserUseCase(data: any): Promise<User> {
+        const userDto = await validateDtoOrThrow(CreateUserDTO, data);
         const isEmailExist = await this.userRepo.getUserByEmail(userDto.email);
         if (isEmailExist != null) throw new Error('This email is already taken!');
 
@@ -29,5 +22,14 @@ export class UserUseCase {
     async getUserUseCase(id: string): Promise<User | null> {
         return await this.userRepo.getUserById(id);
     }
+
+    // async loginUseCase(data: any): Promise<User> {
+    //     const userDto = await validateDtoOrThrow(UserLoginDTO, data);
+    //     const user = await this.userRepo.getUserByEmail(userDto.email);
+    //     if (user == null) throw new NotFoundException('User does not exist!');
+
+    //     const isValidPassword = await bcrypt.compare(userDto.password, user.password);
+    //     if (!isValidPassword) throw new Error('Invalid password!');
+    // }
 
 }
