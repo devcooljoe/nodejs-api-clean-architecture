@@ -1,7 +1,11 @@
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
 import userRouter from "./UserRouter";
 
 const router = Router();
+
+router.get('/', (req: Request, res: Response, _: NextFunction) => {
+    return res.send('Welcome to Eldaa API');
+});
 
 router.use('/api/v1/user', userRouter);
 

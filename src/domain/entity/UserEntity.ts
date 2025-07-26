@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { UserRole } from "../enums/UserRole";
 
 @Entity("users")
 export class UserEntity {
@@ -11,6 +12,12 @@ export class UserEntity {
     @Column({ unique: true })
     email!: string;
 
+    @Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.USER,
+    }) role!: UserRole;
+
     @Column()
     password!: string;
 
@@ -19,4 +26,7 @@ export class UserEntity {
 
     @UpdateDateColumn()
     updatedAt!: Date;
+
+    @DeleteDateColumn()
+    deletedAt?: Date;
 }

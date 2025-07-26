@@ -1,7 +1,18 @@
 import { NextFunction, Request, Response } from "express";
 import { BadRequestException, ForbiddenException, InternalServerException, NotFoundException, TooManyRequestException, UnauthorizedException, UnprocessableEntityException } from "../../../domain/exceptions/Exception";
+import logger from "../../../logger";
+
+
 
 export default function errorHandler(err: any, req: Request, res: Response, __: NextFunction) {
+    logger.error({
+        message: err.message,
+        stack: err.stack,
+        route: req.originalUrl,
+        method: req.method,
+        body: req.body
+    });
+
     if (err instanceof BadRequestException) {
         return res.isBadRequest({ message: err.message });
     }

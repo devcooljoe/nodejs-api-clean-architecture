@@ -14,17 +14,17 @@ export class UserRepositoryImpl implements UserRepository {
     async createUser(user: User): Promise<User> {
         const userEntity = this.repository.create(user);
         const savedUserEntity = await this.repository.save(userEntity);
-        return new User(savedUserEntity);
+        return User.fromEntity(savedUserEntity);
     }
 
     async getUserById(id: string): Promise<User | null> {
         const userEntity = await this.repository.findOneBy({ id });
-        return userEntity ? new User(userEntity) : null;
+        return userEntity ? User.fromEntity(userEntity) : null;
     }
 
     async getUserByEmail(email: string): Promise<User | null> {
         const userEntity = await this.repository.findOneBy({ email });
-        return userEntity ? new User(userEntity) : null
+        return userEntity ? User.fromEntity(userEntity) : null
     }
 
     async getUserByEmail2(email: string) {
