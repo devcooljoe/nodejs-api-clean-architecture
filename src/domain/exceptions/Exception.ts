@@ -7,4 +7,3 @@ export class ForbiddenException extends BaseException { }
 export class InternalServerException extends BaseException { }
 export class TooManyRequestException extends BaseException { }
 export class UnprocessableEntityException extends BaseException { }
-

@@ -19,12 +19,12 @@ export class UserRepositoryImpl implements UserRepository {
 
     async getUserById(id: string): Promise<User | null> {
         const userEntity = await this.repository.findOneBy({ id });
-        return userEntity ? User.fromEntity(userEntity) : null;
+        return userEntity ? new User(userEntity) : null;
     }
 
     async getUserByEmail(email: string): Promise<User | null> {
         const userEntity = await this.repository.findOneBy({ email });
-        return userEntity ? User.fromEntity(userEntity) : null
+        return userEntity ? new User(userEntity) : null
     }
 
     async getUserByEmail2(email: string) {

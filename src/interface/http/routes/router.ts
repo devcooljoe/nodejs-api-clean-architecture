@@ -4,7 +4,7 @@ import userRouter from "./UserRouter";
 const router = Router();
 
 router.get('/', (req: Request, res: Response, _: NextFunction) => {
-    return res.send('Welcome to Eldaa API');
+    return res.send('Welcome to API');
 });
 
 router.use('/api/v1/user', userRouter);

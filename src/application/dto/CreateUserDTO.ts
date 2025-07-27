@@ -11,3 +11,4 @@ export class CreateUserDTO {
     @MinLength(6)
     password!: string;
 }
+

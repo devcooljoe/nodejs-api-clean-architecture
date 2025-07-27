@@ -1,6 +1,6 @@
 import env from './config/env';
 import { appDataSource } from './infrastructure/db/DataSource';
-import app from './main';
+import app from './app';
 
 const PORT = env.PORT || 8000;
 

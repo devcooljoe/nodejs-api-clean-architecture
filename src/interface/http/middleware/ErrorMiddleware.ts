@@ -35,5 +35,5 @@ export default function errorHandler(err: any, req: Request, res: Response, __: 
         return res.isUnprocessableEntity({ message: err.message });
     }
 
-    return res.isServerError({ message: req.body, error: err.stack });
+    return res.isServerError({ message: err.message, error: err.stack });
 }

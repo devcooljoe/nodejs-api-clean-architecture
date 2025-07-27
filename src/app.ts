@@ -1,11 +1,10 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from "express";
+import express, { Request, Response } from "express";
 import expressWinston from 'express-winston';
 import "reflect-metadata";
 import "./interface/http/extensions/express-response.extension";
 import { extendResponse } from './interface/http/extensions/response-extension';
-import errorHandler from './interface/http/middleware/ErrorMiddleware';
 import router from './interface/http/routes/router';
 import logger from './logger';
 
@@ -28,6 +27,15 @@ app.use(expressWinston.logger({
     },
 }));
 app.use(router);
-app.use(errorHandler);
+
+
+app.all(/.*/, (req: Request, res: Response) => {
+    return res.status(404).json({
+        status: 'error',
+        message: `Route '${req.originalUrl}' not found`
+    });
+});
+
+
 
 export default app;

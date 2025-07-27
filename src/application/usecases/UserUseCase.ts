@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import { validateDtoOrThrow } from '../../core/utils/validate-dto';
 import { User } from "../../domain/entity/User";
+import { UserRole } from '../../domain/enums/UserRole';
 import { UserRepository } from "../../domain/repository/UserRepository";
 import { CreateUserDTO } from "../dto/CreateUserDTO";
 
@@ -15,7 +16,8 @@ export class UserUseCase {
 
         const hashedPassword = await bcrypt.hash(userDto.password, 10);
 
-        const user = new User({ name: userDto.name, email: userDto.email, password: hashedPassword });
+        const user = new User({ name: userDto.name, email: userDto.email, role: UserRole.ADMIN, password: hashedPassword });
+
         return await this.userRepo.createUser(user);
     }
 

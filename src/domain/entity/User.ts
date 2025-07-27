@@ -1,6 +1,18 @@
 import { UserRole } from "../enums/UserRole";
 import { UserEntity } from "./UserEntity";
 
+
+interface UserProps {
+    id?: string;
+    name: string;
+    email: string;
+    role: UserRole;
+    password: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date;
+}
+
 export class User {
     readonly id?: string;
     readonly name: string;
@@ -11,7 +23,7 @@ export class User {
     readonly updatedAt: Date;
     readonly deletedAt?: Date;
 
-    private constructor(props: User) {
+    constructor(props: UserProps) {
         this.id = props.id;
         this.name = props.name;
         this.email = props.email;
@@ -35,3 +47,4 @@ export class User {
         });
     }
 }
+
