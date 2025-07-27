@@ -6,6 +6,7 @@ import "reflect-metadata";
 import './config/container';
 import "./interface/http/extensions/express-response.extension";
 import { extendResponse } from './interface/http/extensions/response-extension';
+import errorHandler from './interface/http/middleware/ErrorMiddleware';
 import router from './interface/http/routes/router';
 import logger from './logger';
 
@@ -36,6 +37,9 @@ app.all(/.*/, (req: Request, res: Response) => {
         message: `Route '${req.originalUrl}' not found`
     });
 });
+
+
+app.use(errorHandler);
 
 
 

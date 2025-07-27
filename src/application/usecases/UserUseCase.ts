@@ -3,6 +3,7 @@ import { Inject, Service } from 'typedi';
 import { validateDtoOrThrow } from '../../core/utils/validate-dto';
 import { User } from "../../domain/entity/User";
 import { UserRole } from '../../domain/enums/UserRole';
+import { BadRequestError } from '../../domain/errors/Error';
 import { UserRepository } from '../../domain/repository/UserRepository';
 import { CreateUserDTO } from "../dto/CreateUserDTO";
 
@@ -14,7 +15,7 @@ export class UserUseCase {
     async createUserUseCase(data: any): Promise<User> {
         const userDto = await validateDtoOrThrow(CreateUserDTO, data);
         const isEmailExist = await this.userRepo.getUserByEmail(userDto.email);
-        if (isEmailExist != null) throw new Error('This email is already taken!');
+        if (isEmailExist != null) throw new BadRequestError('This email is already taken!');
 
         const hashedPassword = await bcrypt.hash(userDto.password, 10);
 

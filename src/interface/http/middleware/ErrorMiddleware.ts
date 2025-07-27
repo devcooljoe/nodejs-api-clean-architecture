@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { BadRequestException, ForbiddenException, InternalServerException, NotFoundException, TooManyRequestException, UnauthorizedException, UnprocessableEntityException } from "../../../domain/exceptions/Exception";
+import { BadRequestError, ForbiddenError, InternalServerError, NotFoundError, TooManyRequestError, UnauthorizedError, UnprocessableEntityError } from "../../../domain/errors/Error";
 import logger from "../../../logger";
 
 
@@ -13,25 +13,25 @@ export default function errorHandler(err: any, req: Request, res: Response, __: 
         body: req.body
     });
 
-    if (err instanceof BadRequestException) {
+    if (err instanceof BadRequestError) {
         return res.isBadRequest({ message: err.message });
     }
-    if (err instanceof NotFoundException) {
+    if (err instanceof NotFoundError) {
         return res.isNotFound({ message: err.message });
     }
-    if (err instanceof UnauthorizedException) {
+    if (err instanceof UnauthorizedError) {
         return res.isUnathorized({ message: err.message });
     }
-    if (err instanceof ForbiddenException) {
+    if (err instanceof ForbiddenError) {
         return res.isForbidden({ message: err.message });
     }
-    if (err instanceof InternalServerException) {
+    if (err instanceof InternalServerError) {
         return res.isServerError({ message: err.message });
     }
-    if (err instanceof TooManyRequestException) {
+    if (err instanceof TooManyRequestError) {
         return res.isTooManyRequest({ message: err.message });
     }
-    if (err instanceof UnprocessableEntityException) {
+    if (err instanceof UnprocessableEntityError) {
         return res.isUnprocessableEntity({ message: err.message });
     }
 

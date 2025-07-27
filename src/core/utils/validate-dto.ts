@@ -1,6 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { UnprocessableEntityException } from '../../domain/exceptions/Exception';
+import { UnprocessableEntityError } from '../../domain/errors/Error';
 
 export async function validateDtoOrThrow<T extends object>(
     cls: new () => T,
@@ -13,7 +13,7 @@ export async function validateDtoOrThrow<T extends object>(
         const errorMessages = errors.flatMap(err =>
             Object.values(err.constraints || {})
         );
-        throw new UnprocessableEntityException(errorMessages.join(', '));
+        throw new UnprocessableEntityError(errorMessages.join(', '));
     }
 
     return instance;
