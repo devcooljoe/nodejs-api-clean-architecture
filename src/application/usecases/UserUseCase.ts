@@ -1,13 +1,15 @@
 import bcrypt from 'bcryptjs';
+import { Inject, Service } from 'typedi';
 import { validateDtoOrThrow } from '../../core/utils/validate-dto';
 import { User } from "../../domain/entity/User";
 import { UserRole } from '../../domain/enums/UserRole';
-import { UserRepository } from "../../domain/repository/UserRepository";
+import { UserRepository } from '../../domain/repository/UserRepository';
 import { CreateUserDTO } from "../dto/CreateUserDTO";
 
+@Service()
 export class UserUseCase {
 
-    constructor(private readonly userRepo: UserRepository) { }
+    constructor(@Inject('UserRepository') private readonly userRepo: UserRepository) { }
 
     async createUserUseCase(data: any): Promise<User> {
         const userDto = await validateDtoOrThrow(CreateUserDTO, data);

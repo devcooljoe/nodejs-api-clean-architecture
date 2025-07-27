@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import express, { Request, Response } from "express";
 import expressWinston from 'express-winston';
 import "reflect-metadata";
+import './config/container';
 import "./interface/http/extensions/express-response.extension";
 import { extendResponse } from './interface/http/extensions/response-extension';
 import router from './interface/http/routes/router';

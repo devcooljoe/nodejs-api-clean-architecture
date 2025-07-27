@@ -1,9 +1,11 @@
+import { Service } from "typedi";
 import { Repository } from "typeorm";
 import { appDataSource } from "../../infrastructure/db/DataSource";
 import { User } from "../entity/User";
 import { UserEntity } from "../entity/UserEntity";
 import { UserRepository } from "./UserRepository";
 
+@Service()
 export class UserRepositoryImpl implements UserRepository {
     private repository: Repository<UserEntity>;
 
