@@ -1,5 +1,4 @@
-import { User } from "../entity/User";
-
+import { User } from '../entity/User';
 
 export interface UserRepository {
     createUser(user: User): Promise<User>;

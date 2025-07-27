@@ -1,5 +1,5 @@
-import { Exclude, Expose, Transform } from "class-transformer";
-import { User } from "../../../domain/entity/User";
+import { Exclude, Expose, Transform } from 'class-transformer';
+import { User } from '../../../domain/entity/User';
 
 export class UserResource {
     @Expose()

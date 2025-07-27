@@ -1,6 +1,5 @@
-import { UserRole } from "../enums/UserRole";
-import { UserEntity } from "./UserEntity";
-
+import { UserRole } from '../enums/UserRole';
+import { UserEntity } from './UserEntity';
 
 interface UserProps {
     id?: string;
@@ -47,4 +46,3 @@ export class User {
         });
     }
 }
-

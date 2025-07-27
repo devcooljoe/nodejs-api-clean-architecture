@@ -1,16 +1,27 @@
-import { NextFunction, Request, Response } from "express";
-import { BadRequestError, ForbiddenError, InternalServerError, NotFoundError, TooManyRequestError, UnauthorizedError, UnprocessableEntityError } from "../../../domain/errors/Error";
-import logger from "../../../logger";
+import { NextFunction, Request, Response } from 'express';
+import {
+    BadRequestError,
+    ForbiddenError,
+    InternalServerError,
+    NotFoundError,
+    TooManyRequestError,
+    UnauthorizedError,
+    UnprocessableEntityError,
+} from '../../../domain/errors/Error';
+import logger from '../../../logger';
 
-
-
-export default function errorHandler(err: any, req: Request, res: Response, __: NextFunction) {
+export default function errorHandler(
+    err: any,
+    req: Request,
+    res: Response,
+    __: NextFunction,
+) {
     logger.error({
         message: err.message,
         stack: err.stack,
         route: req.originalUrl,
         method: req.method,
-        body: req.body
+        body: req.body,
     });
 
     if (err instanceof BadRequestError) {

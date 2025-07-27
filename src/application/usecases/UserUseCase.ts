@@ -1,25 +1,32 @@
 import bcrypt from 'bcryptjs';
 import { Inject, Service } from 'typedi';
 import { validateDtoOrThrow } from '../../core/utils/validate-dto';
-import { User } from "../../domain/entity/User";
+import { User } from '../../domain/entity/User';
 import { UserRole } from '../../domain/enums/UserRole';
 import { BadRequestError } from '../../domain/errors/Error';
 import { UserRepository } from '../../domain/repository/UserRepository';
-import { CreateUserDTO } from "../dto/CreateUserDTO";
+import { CreateUserDTO } from '../dto/CreateUserDTO';
 
 @Service()
 export class UserUseCase {
-
-    constructor(@Inject('UserRepository') private readonly userRepo: UserRepository) { }
+    constructor(
+        @Inject('UserRepository') private readonly userRepo: UserRepository,
+    ) {}
 
     async createUserUseCase(data: any): Promise<User> {
         const userDto = await validateDtoOrThrow(CreateUserDTO, data);
         const isEmailExist = await this.userRepo.getUserByEmail(userDto.email);
-        if (isEmailExist != null) throw new BadRequestError('This email is already taken!');
+        if (isEmailExist != null)
+            throw new BadRequestError('This email is already taken!');
 
         const hashedPassword = await bcrypt.hash(userDto.password, 10);
 
-        const user = new User({ name: userDto.name, email: userDto.email, role: UserRole.ADMIN, password: hashedPassword });
+        const user = new User({
+            name: userDto.name,
+            email: userDto.email,
+            role: UserRole.ADMIN,
+            password: hashedPassword,
+        });
 
         return await this.userRepo.createUser(user);
     }
@@ -36,5 +43,4 @@ export class UserUseCase {
     //     const isValidPassword = await bcrypt.compare(userDto.password, user.password);
     //     if (!isValidPassword) throw new Error('Invalid password!');
     // }
-
 }

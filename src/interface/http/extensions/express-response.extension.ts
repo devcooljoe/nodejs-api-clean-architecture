@@ -1,5 +1,5 @@
-import "express";
-import { User } from "../../../domain/entity/User";
+import 'express';
+import { User } from '../../../domain/entity/User';
 
 declare global {
     namespace Express {

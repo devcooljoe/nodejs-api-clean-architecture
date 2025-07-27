@@ -1,9 +1,9 @@
-import { Service } from "typedi";
-import { Repository } from "typeorm";
-import { appDataSource } from "../../infrastructure/db/DataSource";
-import { User } from "../entity/User";
-import { UserEntity } from "../entity/UserEntity";
-import { UserRepository } from "./UserRepository";
+import { Service } from 'typedi';
+import { Repository } from 'typeorm';
+import { appDataSource } from '../../infrastructure/db/DataSource';
+import { User } from '../entity/User';
+import { UserEntity } from '../entity/UserEntity';
+import { UserRepository } from './UserRepository';
 
 @Service()
 export class UserRepositoryImpl implements UserRepository {
@@ -26,11 +26,10 @@ export class UserRepositoryImpl implements UserRepository {
 
     async getUserByEmail(email: string): Promise<User | null> {
         const userEntity = await this.repository.findOneBy({ email });
-        return userEntity ? new User(userEntity) : null
+        return userEntity ? new User(userEntity) : null;
     }
 
     async getUserByEmail2(email: string) {
         const entity = await this.repository.find();
-
     }
 }
